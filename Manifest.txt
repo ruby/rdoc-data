@@ -1,0 +1,6 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/rdoc-data
+lib/rdoc/data.rb
