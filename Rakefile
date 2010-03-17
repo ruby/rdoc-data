@@ -8,6 +8,13 @@ hoe = Hoe.spec 'rdoc-data' do
 
   clean_globs.push 'data'
 
+  spec_extras[:post_install_message] = <<-EOF
+To install ri data for RDoc 2.5+ run:
+
+  rdoc-data
+
+  EOF
+
   extra_deps     << ['rdoc',    '~> 2.5']
   extra_dev_deps << ['ZenTest', '~> 4.1']
 end
@@ -16,6 +23,11 @@ desc "Generates ri data"
 task :generate => [:install_rdoc, :build_ri_data] do
   files = Dir['data/**/*.ri']
   hoe.spec.files += files
+
+  dirs = nil
+  cd 'data' do dirs = Dir['*'] end
+
+  hoe.spec.description << "\n\nIncludes data for #{dirs.join ', '}"
 end
 
 task :gem => :generate
