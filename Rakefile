@@ -22,7 +22,7 @@ end
 desc "Generates ri data"
 task :generate => [:install_rdoc, :build_ri_data] do
   files = Dir['data/**/*.ri']
-  hoe.spec.files += files
+  hoe.spec.files += files # #files is not cached, so we must assign
 
   dirs = nil
   cd 'data' do dirs = Dir['*'] end
