@@ -6,6 +6,8 @@ require 'hoe'
 hoe = Hoe.spec 'rdoc-data' do
   developer 'Eric Hodel', 'drbrain@segment7.net'
 
+  self.rubyforge_project = 'rdoc'
+
   clean_globs.push 'data'
 
   spec_extras[:post_install_message] = <<-EOF
