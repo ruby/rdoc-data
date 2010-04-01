@@ -1,4 +1,9 @@
-=== 1.0.0 / 2010-03-03
+=== 2.5.1 / 2010-04-01
+
+* 1 bug fixed
+  * Fixed use of Gem.datadir
+
+=== 2.5 / 2010-03-31
 
 * 1 major enhancement
 
