@@ -5,7 +5,7 @@ require 'find'
 
 class RDoc::Data
 
-  VERSION = '2.5'
+  VERSION = '2.5.1'
 
   def self.process_args args
     options = {}
@@ -42,8 +42,7 @@ class RDoc::Data
   end
 
   def initialize options
-    data_dir = Gem.datadir('rdoc-data') ||
-               File.expand_path('../../../data', __FILE__)
+    data_dir = Gem.datadir('') || File.expand_path('../../../data', __FILE__)
     @source = File.join data_dir, RUBY_VERSION
 
     @destination = RDoc::RI::Paths::SYSDIR
