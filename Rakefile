@@ -6,7 +6,7 @@ require 'hoe'
 hoe = Hoe.spec 'rdoc-data' do
   developer 'Eric Hodel', 'drbrain@segment7.net'
 
-  self.rubyforge_project = 'rdoc'
+  self.rubyforge_name = 'rdoc'
 
   clean_globs.push 'data'
 
