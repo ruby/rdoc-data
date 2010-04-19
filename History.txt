@@ -1,16 +1,21 @@
+=== 2.5.3 / 2010-04-14
+
+* 1 Minor Enhancement
+  * Regenerated documentation for parser fix in RDoc 2.5.4.
+
 === 2.5.2 / 2010-04-06
 
-* 1 minor enhancement
+* 1 Minor Enhancement
   * Updated to include method params now that RDoc::AnyMethod dumps them
 
 === 2.5.1 / 2010-04-01
 
-* 1 bug fixed
+* 1 Bug Fixed
   * Fixed use of Gem.datadir
 
 === 2.5 / 2010-03-31
 
-* 1 major enhancement
+* 1 Major Enhancement
 
   * Birthday!
 
