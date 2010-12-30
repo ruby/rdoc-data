@@ -4,7 +4,8 @@
 
 == DESCRIPTION:
 
-Core ri data for use with RDoc 2.5
+Core ri data for use with RDoc 2.5 or newer.  Required to use ri from RDoc 2.5
+with Ruby 1.8.6, 1.8.7 or 1.9.1.
 
 == FEATURES:
 

@@ -5,7 +5,7 @@ require 'find'
 
 class RDoc::Data
 
-  VERSION = '2.5.3'
+  VERSION = '2.5.4'
 
   def self.process_args args
     options = {}
@@ -26,6 +26,8 @@ class RDoc::Data
   end
 
   def self.run argv = ARGV
+    abort 'Ruby 1.9.2 and newer do not need rdoc-data' if RUBY_VERSION > '1.9.1'
+
     options = process_args argv
 
     data = new options

@@ -11,9 +11,11 @@ hoe = Hoe.spec 'rdoc-data' do
   clean_globs.push 'data'
 
   spec_extras[:post_install_message] = <<-EOF
+rdoc-data is only required for ruby 1.8.7 or 1.9.1.
+
 To install ri data for RDoc 2.5+ run:
 
-  rdoc-data
+  rdoc-data --install
 
   EOF
 
