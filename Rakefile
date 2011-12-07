@@ -43,12 +43,12 @@ end
 
 desc "Installs RDoc in multiruby"
 task :install_rdoc do
-  rdoc_gem_path = if File.exist? '../trunk/bin/ri' then
-                    cd '../trunk' do
+  rdoc_gem_path = if File.exist? '../rdoc/bin/ri' then
+                    cd '../rdoc' do
                       sh 'rake', 'package'
                     end
 
-                    '../trunk/pkg/rdoc-*.gem'
+                    '../rdoc/pkg/rdoc-*.gem'
                   else
                     'rdoc'
                   end
