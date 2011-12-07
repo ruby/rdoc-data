@@ -5,7 +5,7 @@ require 'find'
 
 class RDoc::Data
 
-  VERSION = '2.5.4'
+  VERSION = '3.11'
 
   def self.process_args args
     options = {}
