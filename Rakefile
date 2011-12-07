@@ -11,7 +11,9 @@ hoe = Hoe.spec 'rdoc-data' do
   clean_globs.push 'data'
 
   spec_extras[:post_install_message] = <<-EOF
-rdoc-data is only required for ruby 1.8.7 or 1.9.1.
+rdoc-data is only required for C ruby 1.8.7 or 1.9.1.
+
+rdoc-data is required for JRuby.
 
 To install ri data for RDoc 2.5+ run:
 
@@ -19,8 +21,7 @@ To install ri data for RDoc 2.5+ run:
 
   EOF
 
-  extra_deps     << ['rdoc',    '~> 2.5']
-  extra_dev_deps << ['ZenTest', '~> 4.1']
+  extra_deps     << ['rdoc', '> 2.5', '< 4.0']
 end
 
 desc "Generates ri data"
