@@ -4,14 +4,18 @@
 
 == DESCRIPTION:
 
-Core ri data for use with RDoc 2.5 or newer.  Required to use ri from RDoc 2.5
-with Ruby 1.8.6, 1.8.7 or 1.9.1.
+Core ri data for use with RDoc 2.5 or newer.  This gem is required to use ri
+from RDoc 2.5 and newer with Ruby 1.8.7.  ri data for Ruby 1.9.2 and 1.9.3 are
+also included for use with JRuby but are not needed for typical installs of C
+Ruby.
 
 == FEATURES:
 
 * Core ri data for use with rdoc >= 2.5
 * Core ri data for rdoc <= 2.4.3 will still work (if you uninstall 2.5+)
 * Does not update ri data for gems (use gem rdoc --all --overwrite --no-rdoc)
+* Contains ri data for ruby versions 1.8.7, 1.9.2, 1.9.3 built from ruby
+  releases 1.8.7-p358, 1.9.2-p290 and 1.9.3-p125 respectively.
 
 == SYNOPSIS:
 
