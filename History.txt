@@ -1,3 +1,11 @@
+=== 3.11 / 2012-02-16
+
+* Minor enhancements
+  * Added ri data for Ruby 1.9.3
+  * Removed ri data for Ruby 1.9.1
+  * Added RUBY_VERSION check to print a pretty message for unsupported ruby
+    versions
+
 === 2.5.4 / 2010-12-30
 
 * Minor enhancements
