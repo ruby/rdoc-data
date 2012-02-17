@@ -61,8 +61,9 @@ desc "Builds ri data for each multiruby install"
 task :build_ri_data => [:data] do
   data_dir = File.expand_path 'data'
 
-  Dir[File.expand_path('~/.multiruby/install/*')].each do |dir|
-    install_name = File.basename dir
+  Dir[File.expand_path('~/.multiruby/build/*')].each do |dir|
+    build_name   = File.basename dir
+    install_name = build_name.sub 'ruby-', ''
     data_name    = install_name.sub(/-p\d+/, '')
 
     rdoc_bin_path =
