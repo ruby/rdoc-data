@@ -5,7 +5,7 @@ require 'find'
 
 class RDoc::Data
 
-  VERSION = '3.12'
+  VERSION = '4.0'
 
   class Error < RuntimeError
   end

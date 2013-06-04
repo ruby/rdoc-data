@@ -1,3 +1,8 @@
+=== 4.0 / 2013-06-04
+
+* Minor enhancements
+  * Added ri data for Ruby 2.0.0
+
 === 3.12 / 2012-02-16
 
 * Minor enhancements
