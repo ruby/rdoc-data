@@ -44,15 +44,9 @@ end
 
 desc "Installs RDoc in multiruby"
 task :install_rdoc do
-  rdoc_gem_path = if File.exist? '../rdoc/bin/ri' then
-                    cd '../rdoc' do
-                      sh 'rake', 'package'
-                    end
-
-                    '../rdoc/pkg/rdoc-*.gem'
-                  else
-                    'rdoc'
-                  end
+  rdoc_gem_path = ENV['RDOC_GEM'] || abort(<<-ABORT)
+Specifiy the path to the rdoc gem to use as RDOC_GEM
+  ABORT
 
   sh 'multigem', 'install', rdoc_gem_path, '--no-rdoc', '--no-ri'
 end
@@ -67,7 +61,7 @@ task :build_ri_data => [:data] do
     data_name    = install_name.sub(/-p\d+/, '')
 
     rdoc_bin_path =
-      File.expand_path "~/.multiruby/install/#{install_name}/bin/rdoc"
+      File.expand_path "~/.multiruby/install/2.0.0-p195/bin/rdoc"
 
     rdoc_dir = "#{data_dir}/#{data_name}"
 
