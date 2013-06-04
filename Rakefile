@@ -15,13 +15,13 @@ rdoc-data is only required for C ruby 1.8.7 or 1.9.1.
 
 rdoc-data is required for JRuby.
 
-To install ri data for RDoc 2.5+ run:
+To install ri data for RDoc 4.0+ run:
 
   rdoc-data --install
 
   EOF
 
-  extra_deps     << ['rdoc', '> 2.5', '< 4.0']
+  extra_deps     << ['rdoc', '~> 4.0']
 end
 
 desc "Generates ri data"
