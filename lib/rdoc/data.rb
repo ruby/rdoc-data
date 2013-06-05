@@ -5,7 +5,7 @@ require 'find'
 
 class RDoc::Data
 
-  VERSION = '4.0'
+  VERSION = '4.0.1'
 
   class Error < RuntimeError
   end
@@ -59,7 +59,7 @@ class RDoc::Data
                    "only #{supported.join ', '}"
     end
 
-    @destination = RDoc::RI::Paths::SYSDIR
+    @destination = RDoc::RI::Paths.system_dir
   end
 
   def run

@@ -1,3 +1,9 @@
+=== 4.0.1 / 2013-06-04
+
+* Bug fixes
+  * Fixed installation due to removal of SYSDIR in RDoc 4.  Bug #3 by Charles
+    Oliver Nutter.
+
 === 4.0 / 2013-06-04
 
 * Minor enhancements
