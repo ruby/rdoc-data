@@ -1,6 +1,3 @@
-# -*- ruby -*-
-
-require 'rubygems'
 require 'hoe'
 
 hoe = Hoe.spec 'rdoc-data' do
