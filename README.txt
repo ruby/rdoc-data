@@ -1,6 +1,6 @@
 = rdoc-data
 
-* http://rdoc.rubyforge.org
+* http://docs.seattlerb.org/rdoc/
 
 == DESCRIPTION:
 
