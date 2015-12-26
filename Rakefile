@@ -1,6 +1,6 @@
 require 'hoe'
 
-SUPPORTED_VERSIONS = %w[1.8.7-p374 1.9.3-p551 2.0.0-p647 2.1.8 2.2.3 2.3.0]
+SUPPORTED_VERSIONS = %w[1.8.7-p374 1.9.3-p551 2.0.0-p647 2.1.8 2.2.4 2.3.0]
 
 hoe = Hoe.spec 'rdoc-data' do
   developer 'Eric Hodel', 'drbrain@segment7.net'
