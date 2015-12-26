@@ -1,5 +1,7 @@
 require 'hoe'
 
+SUPPORTED_VERSIONS = %w[1.8.7-p374 1.9.3-p551 2.0.0-p647 2.1.8 2.2.3 2.3.0]
+
 hoe = Hoe.spec 'rdoc-data' do
   developer 'Eric Hodel', 'drbrain@segment7.net'
   developer 'Zachary Scott', 'mail@zzak.io'
@@ -42,10 +44,9 @@ desc "Builds ri data for each supported ruby version"
 task :build_ri_data => [:data] do
   data_dir = File.expand_path 'data'
 
-  Dir[File.expand_path('~/.multiruby/build/*')].each do |dir|
+  Dir[File.expand_path('rubies/*')].each do |dir|
     build_name   = File.basename dir
-    install_name = build_name.sub 'ruby-', ''
-    data_name    = install_name.sub(/-p\d+/, '')
+    data_name    = build_name.sub(/-p\d+/, '')
 
     rdoc_bin_path = "rdoc"
 
@@ -59,6 +60,28 @@ task :build_ri_data => [:data] do
   end
 end
 
-directory 'data'
+directory 'data' => SUPPORTED_VERSIONS
 
-# vim: syntax=Ruby
+SUPPORTED_VERSIONS.each do |version|
+  stripped = version.split("-p")[0]
+  minor = stripped[0..-3]
+
+  task version => "rubies/#{minor}"
+  directory "rubies/#{minor}" do
+    ftp = "http://ftp.ruby-lang.org/pub/ruby"
+    sh "mkdir -p rubies"
+
+    cd "rubies" do
+      sh "curl #{ftp}/#{minor}/ruby-#{version}.tar.gz | tar xz"
+      sh "mv ruby-#{version} #{minor}"
+      cd minor do
+        sh "mkdir build"
+        sh "autoconf"
+        cd "build" do
+          sh "../configure --disable-install-doc"
+          sh "make -j4"
+        end
+      end
+    end
+  end
+end
