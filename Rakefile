@@ -19,6 +19,8 @@ To install ri data for RDoc 4.0+ run:
 
   EOF
 
+  license 'MIT'
+
   extra_deps     << ['rdoc', '~> 4.0']
 end
 
