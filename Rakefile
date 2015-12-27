@@ -43,30 +43,24 @@ task path => :generate do
 end
 
 desc "Builds ri data for each supported ruby version"
-task :build_ri_data => [:data] do
-  data_dir = File.expand_path 'data'
+task :build_ri_data => SUPPORTED_VERSIONS
 
-  Dir[File.expand_path('rubies/*')].each do |dir|
-    build_name   = File.basename dir
-    data_name    = build_name.sub(/-p\d+/, '')
-
-    rdoc_bin_path = "rdoc"
-
-    rdoc_dir = "#{data_dir}/#{data_name}"
-
-    next if File.exist? rdoc_dir
-
-    cd dir do
-      sh rdoc_bin_path, '--all', '--ri', '--op', rdoc_dir, '.'
-    end
-  end
+desc "Cleans build directories"
+task :clean do
+  rm_r "data" if Dir.exists? "data"
+  rm_r "pkg" if Dir.exists? "pkg"
+  rm_r "rubies" if Dir.exists? "rubies"
 end
-
-directory 'data' => SUPPORTED_VERSIONS
 
 SUPPORTED_VERSIONS.each do |version|
   stripped = version.split("-p")[0]
   minor = stripped[0..-3]
+  data_dir = File.expand_path 'data'
+  sh "mkdir -p data"
+
+  rdoc_dir = "#{data_dir}/#{minor}"
+  destdir = File.expand_path "rubies/#{minor}/destdir"
+  srcdir = File.expand_path "rubies/#{minor}"
 
   task version => "rubies/#{minor}"
   directory "rubies/#{minor}" do
@@ -78,10 +72,26 @@ SUPPORTED_VERSIONS.each do |version|
       sh "mv ruby-#{version} #{minor}"
       cd minor do
         sh "mkdir build"
+        sh "mkdir destdir"
         sh "autoconf"
+
         cd "build" do
-          sh "../configure --disable-install-doc"
-          sh "make -j4"
+          sh "../configure --disable-install-doc --prefix=#{destdir}"
+          sh "make -j4 && make install"
+        end
+
+        cd "destdir" do
+          gem_path = "lib/ruby/gems/*"
+
+          env = {
+            "GEM_ROOT" => gem_path,
+            "GEM_HOME" => gem_path,
+            "GEM_PATH" => gem_path
+          }
+
+          cmd = "bin/ruby -S bin/rdoc --all --ri --op #{rdoc_dir} #{srcdir}"
+
+          system env, cmd
         end
       end
     end
