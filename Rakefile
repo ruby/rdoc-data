@@ -47,9 +47,9 @@ task :build_ri_data => SUPPORTED_VERSIONS
 
 desc "Cleans build directories"
 task :clean do
-  rm_r "data" if Dir.exists? "data"
-  rm_r "pkg" if Dir.exists? "pkg"
-  rm_r "rubies" if Dir.exists? "rubies"
+  rm_r "data" if File.exists? "data"
+  rm_r "pkg" if File.exists? "pkg"
+  rm_r "rubies" if File.exists? "rubies"
 end
 
 SUPPORTED_VERSIONS.each do |version|
