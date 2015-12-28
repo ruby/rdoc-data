@@ -99,10 +99,15 @@ SUPPORTED_VERSIONS.each do |version|
           "GEM_PATH" => gem_path
         }
 
+        if minor < "2.0"
           cmd = "bin/ruby -S bin/rdoc --all --ri --op #{rdoc_dir} #{srcdir}"
-
-          system env, cmd
+        else
+          cmd = "bin/ruby -S #{workdir}/generate.rb #{rdoc_dir} #{srcdir}"
         end
+
+        puts "Generating ri data for Ruby #{version}.."
+        puts cmd
+        system env, cmd
       end
     end
   end
