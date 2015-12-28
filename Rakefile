@@ -25,7 +25,7 @@ To install ri data for RDoc 4.0+ run:
 end
 
 desc "Generates ri data"
-task :generate => :build_ri_data do
+task :generate => [:data, :rubies, :build_ri_data] do
   files = Dir['data/**/*.ri']
   hoe.spec.files += files # #files is not cached, so we must assign
 
@@ -52,42 +52,52 @@ task :clean do
   rm_r "rubies" if File.exists? "rubies"
 end
 
+directory "data"
+directory "rubies"
+
 SUPPORTED_VERSIONS.each do |version|
   stripped = version.split("-p")[0]
   minor = stripped[0..-3]
   data_dir = File.expand_path 'data'
-  sh "mkdir -p data"
 
   rdoc_dir = "#{data_dir}/#{minor}"
+  buildir = "rubies/#{minor}/build"
   destdir = File.expand_path "rubies/#{minor}/destdir"
   srcdir = File.expand_path "rubies/#{minor}"
+  ftp = "http://ftp.ruby-lang.org/pub/ruby"
+  workdir = Dir.pwd
 
   task version => "rubies/#{minor}"
-  directory "rubies/#{minor}" do
-    ftp = "http://ftp.ruby-lang.org/pub/ruby"
-    sh "mkdir -p rubies"
+  directory "rubies/#{minor}" => [buildir, rdoc_dir]
 
+  directory buildir => "rubies" do
     cd "rubies" do
       sh "curl #{ftp}/#{minor}/ruby-#{version}.tar.gz | tar xz"
       sh "mv ruby-#{version} #{minor}"
+
+      mkdir_p "#{minor}/build"
+
       cd minor do
-        sh "mkdir build"
-        sh "mkdir destdir"
         sh "autoconf"
 
         cd "build" do
           sh "../configure --disable-install-doc --prefix=#{destdir}"
           sh "make -j4 && make install"
         end
+      end
+    end
+  end
 
-        cd "destdir" do
-          gem_path = "lib/ruby/gems/*"
+  directory rdoc_dir => "data" do
+    cd "rubies" do
+      cd "#{minor}/destdir" do
+        gem_path = "lib/ruby/gems/*"
 
-          env = {
-            "GEM_ROOT" => gem_path,
-            "GEM_HOME" => gem_path,
-            "GEM_PATH" => gem_path
-          }
+        env = {
+          "GEM_ROOT" => gem_path,
+          "GEM_HOME" => gem_path,
+          "GEM_PATH" => gem_path
+        }
 
           cmd = "bin/ruby -S bin/rdoc --all --ri --op #{rdoc_dir} #{srcdir}"
 
