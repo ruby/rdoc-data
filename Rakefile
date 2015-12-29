@@ -102,7 +102,19 @@ SUPPORTED_VERSIONS.each do |version|
         }
 
         if minor < "2.0"
-          cmd = "bin/ruby -S bin/rdoc --all --ri --op #{rdoc_dir} #{srcdir}"
+          if minor == "1.8"
+            sh "curl -L https://rubygems.org/rubygems/rubygems-2.5.1.tgz | tar xz"
+            cd "rubygems-2.5.1" do
+              system env, "../bin/ruby -S setup.rb"
+            end
+
+            system env, "bin/ruby -S gem update --system"
+            system env, "bin/ruby -S gem install rdoc -v'~> 3.12.0'"
+
+            cmd = "bin/ruby -S #{gem_path}/bin/rdoc --all --ri --op #{rdoc_dir} #{srcdir}"
+          else
+            cmd = "bin/ruby -S bin/rdoc --all --ri --op #{rdoc_dir} #{srcdir}"
+          end
         else
           cmd = "bin/ruby -S #{workdir}/generate.rb #{rdoc_dir} #{srcdir}"
         end
