@@ -5,7 +5,7 @@ require 'find'
 
 class RDoc::Data
 
-  VERSION = '4.0.1'
+  VERSION = '4.1.0'
 
   class Error < RuntimeError
   end
@@ -48,14 +48,15 @@ class RDoc::Data
 
   def initialize options
     data_dir = Gem.datadir('') || File.expand_path('../../../data', __FILE__)
-    @source = File.join data_dir, RUBY_VERSION
+    version = RUBY_VERSION.dup[0..-3] # strip the patch-level
+    @source = File.join data_dir, version
 
     unless File.exist? @source then
       supported = Dir[File.join(data_dir, '*')].map do |dir|
         dir.sub File.join(data_dir, ''), ''
       end.sort
 
-      raise Error, "Your ruby version #{RUBY_VERSION} is not supported, " \
+      raise Error, "Your ruby version #{version} is not supported, " \
                    "only #{supported.join ', '}"
     end
 
