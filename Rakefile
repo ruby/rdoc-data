@@ -30,7 +30,9 @@ task :generate => [:data, :rubies, :build_ri_data] do
   hoe.spec.files += files # #files is not cached, so we must assign
 
   dirs = nil
-  cd 'data' do dirs = Dir['*'] end
+  cd 'data' do
+    dirs = Dir['*']
+  end
 
   hoe.spec.description << "\n\nIncludes data for #{dirs.join ', '}"
 end
