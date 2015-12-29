@@ -93,7 +93,7 @@ SUPPORTED_VERSIONS.each do |version|
   directory rdoc_dir => "data" do
     cd "rubies" do
       cd "#{minor}/destdir" do
-        gem_path = "lib/ruby/gems/*"
+        gem_path = "lib/ruby/gems/#{version}"
 
         env = {
           "GEM_ROOT" => gem_path,
